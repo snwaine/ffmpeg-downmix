@@ -6,7 +6,7 @@ EXTENSION=${EXTENSION:-mp4}
 ENCODER=${ENCODER:-libx264}
 PRESET=${PRESET:-veryfast}
 CRF=${CRF:-35}
-THREADS=${THREADS:-4}
+THREADS=${THREADS:-2}
 CPU_LIMIT=${CPU_LIMIT:-50}
 PRIORITY=${PRIORITY:-19}
 ANALYZEDURATION=${ANALYZEDURATION:-100000000}
@@ -40,7 +40,7 @@ process() {
     -y \
     -loglevel warning \
     -i "$input" \
-    -map 0:v -map 0:a -c:v copy -c:a copy \
+    -map 0:v -map 0:a -map 0:a -c:v copy -c:a:1 copy -c:a:0 aac -channel_layout:a:0 stereo -filter:a:0 "pan=stereo|FL<0.5*c2+0.707*c0+0.707*c4+0.5*c3|FR<0.5*c2+0.707*c1+0.707*c5+0.5*c3" -b:a:0 128k \
     -threads "$THREADS" \
     "$destination"
 
