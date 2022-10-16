@@ -1,4 +1,4 @@
-# ffmpeg-watch
+# ffmpeg-downmix
 
 A Docker container designed to watch a directory and encode any file automatically.
 
