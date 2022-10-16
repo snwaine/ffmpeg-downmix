@@ -1,0 +1,15 @@
+version: '3.4'
+services:
+  ffmpeg-downmix:
+    container_name: ffmpeg-downmix
+    build: .
+    restart: always
+    environment:
+      ENCODER: libx265
+      PRESET: veryfast
+      CRF: 29
+      EXTENSION: mp4
+    volumes:
+      - './temp:/temp'
+      - './watch:/watch'
+      - './output:/output'
